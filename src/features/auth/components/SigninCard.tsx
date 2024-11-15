@@ -16,20 +16,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Link from "next/link";
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, "Put password in bro"),
-});
+import { loginSchema } from "../schemas";
+
 const SigninCard = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (value: z.infer<typeof formSchema>) => {
+  const onSubmit = (value: z.infer<typeof loginSchema>) => {
     console.log(value);
   };
 
