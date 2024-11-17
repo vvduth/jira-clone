@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/form";
 import Link from "next/link";
 import { loginSchema } from "../schemas";
+import { uselogin } from "../api/use-login";
 
 const SigninCard = () => {
+  const { mutate } = uselogin();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -27,8 +29,8 @@ const SigninCard = () => {
     },
   });
 
-  const onSubmit = (value: z.infer<typeof loginSchema>) => {
-    console.log(value);
+  const onSubmit = (values: z.infer<typeof loginSchema>) => {
+    mutate(values);
   };
 
   return (
@@ -101,12 +103,14 @@ const SigninCard = () => {
         </Button>
       </CardContent>
       <div className="px-7">
-        <Separator/>
+        <Separator />
       </div>
 
       <CardContent className="p-7 flex items-center justify-center">
         <p>New here?</p>
-        <Link href={"/sign-up"}><span className="text-blue-700">&nbsp;Create an account!</span></Link>
+        <Link href={"/sign-up"}>
+          <span className="text-blue-700">&nbsp;Create an account!</span>
+        </Link>
       </CardContent>
     </Card>
   );

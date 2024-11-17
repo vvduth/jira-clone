@@ -22,15 +22,11 @@ import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { registerSchema } from "../schemas";
 
-const formSchema = z.object({
-  name: z.string().trim().min(1, "Put ur name in man"),
-  email: z.string().email(),
-  password: z.string().min(8, "Min 8 chars"),
-});
 const SignupCard = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -38,7 +34,7 @@ const SignupCard = () => {
     },
   });
 
-  const onSubmit = (value: z.infer<typeof formSchema>) => {
+  const onSubmit = (value: z.infer<typeof registerSchema>) => {
     console.log(value);
   };
   return (
