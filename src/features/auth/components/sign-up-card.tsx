@@ -23,8 +23,11 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import { registerSchema } from "../schemas";
+import { useregister } from "../api/use-register";
 
 const SignupCard = () => {
+
+  const {mutate} = useregister()
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -34,8 +37,9 @@ const SignupCard = () => {
     },
   });
 
-  const onSubmit = (value: z.infer<typeof registerSchema>) => {
-    console.log(value);
+  const onSubmit = (values: z.infer<typeof registerSchema>) => {
+    console.log(values);
+    mutate(values)
   };
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
